@@ -103,6 +103,9 @@ module.exports = function(options) {
     while (matches) {
       var match = matches[0];
       var includePath = path.resolve(filebase, matches[1]);
+      for(var key in context){
+          includePath = includePath.replace('%' + key + '%', context[key]);
+      }
 
       if (currentFilename.toLowerCase() === includePath.toLowerCase()) {
         throw new Error('recursion detected in file: ' + currentFilename);
